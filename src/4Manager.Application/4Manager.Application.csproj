@@ -24,6 +24,7 @@
     <Folder Include="Features\Project\Commands\" />
     <Folder Include="Features\Project\Dtos\" />
     <Folder Include="Features\Project\Queries\" />
+    <Folder Include="Features\Usuarios\Commands\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
 
