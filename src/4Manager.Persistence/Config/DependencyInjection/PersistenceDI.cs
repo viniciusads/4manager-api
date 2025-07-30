@@ -13,7 +13,7 @@ namespace _4Manager.Persistence.Config.DependencyInjection
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));
 
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

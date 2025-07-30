@@ -11,22 +11,22 @@ namespace _4Manager.Persistence.Context
         {
         }
 
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Usuario>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("Usuarios");
 
-                entity.HasKey(u => u.Id);
+                entity.HasKey(u => u.UserId);
 
-                entity.Property(u => u.Nome).IsRequired().HasMaxLength(100);
+                entity.Property(u => u.Name).IsRequired().HasMaxLength(100);
                 entity.Property(u => u.Email).IsRequired().HasMaxLength(100);
-                entity.Property(u => u.SenhaHash).IsRequired().HasMaxLength(255);
-                entity.Property(u => u.Ativo).IsRequired();
+                entity.Property(u => u.PasswordHash).IsRequired().HasMaxLength(255);
+                entity.Property(u => u.Active).IsRequired();
             });
         }
     }

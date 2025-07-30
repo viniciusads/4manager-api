@@ -33,10 +33,10 @@ namespace _4Manager.API.Controllers
         }
 
         [HttpPost("criar-usuario")]
-        public async Task<ActionResult<CreateUserDto>> Create(CreateUserCommand command)
+        public async Task<ActionResult<UserDto>> Create(CreateUserCommand command)
         {
             var createdUser = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, createdUser);
+            return CreatedAtAction(nameof(GetById), new { UserId = createdUser.UserId }, createdUser);
         }
 
         [HttpPost("login")]
