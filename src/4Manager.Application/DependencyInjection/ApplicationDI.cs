@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MediatR;
-using System.Reflection;
-
 
 namespace _4Manager.Application.DependencyInjection
 {
@@ -9,7 +6,7 @@ namespace _4Manager.Application.DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddMediatR(typeof(ApplicationDI).Assembly);
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ApplicationDI).Assembly));
 
             return services;
         }

@@ -1,14 +1,9 @@
 ﻿using _4Manager.Application.Features.Users.Dtos;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace _4Manager.Application.Features.Users.Queries
 {
-    public class GetUsersQuery : IRequest<IEnumerable<UserDto>>
+    public class GetUsersQuery : IRequest<IEnumerable<UserResponseDto>>
     {
     }
 }

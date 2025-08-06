@@ -1,42 +1,28 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
+using Supabase;
 using _4Manager.Application.Features.Users.Commands;
 using _4Manager.Application.Features.Users.Dtos;
-using _4Manager.Domain.Interfaces;
+using _4Manager.Application.Interfaces;
 
 namespace _4Manager.Application.Features.Users.Handlers
 {
-    public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, UserDto>
+    public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, Unit>
     {
-        private readonly IUserRepository _repository;
+        private readonly IAuthService _authService;
 
-        public ResetPasswordCommandHandler(IUserRepository repository)
+        public ResetPasswordCommandHandler(IAuthService authService)
         {
-            _repository = repository;
+            _authService = authService;
         }
 
-        public async Task<UserDto> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
-            var user = await _repository.GetByEmailAsync(request.Email);
-            if (user == null)
-                throw new Exception("Usuário não encontrado.");
 
-            if (request.NewPassword != request.ConfirmPassword)
-                throw new Exception("As senhas não coincidem.");
+            await _authService.ResetPasswordForEmail(request.Email);
+            return Unit.Value;
 
-            user.PasswordHash = request.NewPassword; 
-
-            await _repository.UpdateAsync(user);
-
-            return new UserDto
-            {
-                UserId = user.UserId,
-                Name = user.Name,
-                Email = user.Email
-            };
         }
+       
     }
 }
 

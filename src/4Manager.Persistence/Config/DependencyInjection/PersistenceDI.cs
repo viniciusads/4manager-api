@@ -1,4 +1,4 @@
-﻿using _4Manager.Domain.Interfaces;
+﻿using _4Manager.Application.Interfaces;
 using _4Manager.Persistence.Context;
 using _4Manager.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;

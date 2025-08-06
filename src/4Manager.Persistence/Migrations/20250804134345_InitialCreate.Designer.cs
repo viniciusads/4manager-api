@@ -12,7 +12,7 @@ using _4Manager.Persistence.Context;
 namespace _4Manager.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250721125044_InitialCreate")]
+    [Migration("20250804134345_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,13 +25,13 @@ namespace _4Manager.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("_4Manager.Domain.Entities.Usuario", b =>
+            modelBuilder.Entity("_4Manager.Domain.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("Ativo")
+                    b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Email")
@@ -39,17 +39,21 @@ namespace _4Manager.Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("Nome")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<string>("SenhaHash")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId");
 
                     b.ToTable("Usuarios", (string)null);
                 });

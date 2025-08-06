@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _4Manager.Domain.Interfaces
+namespace _4Manager.Application.Interfaces
 {
     public interface IUserRepository
     {
         Task<IEnumerable<User>> GetAllAsync(CancellationToken cancellationToken);
         Task<User?> GetByIdAsync(Guid id);
+        Task AddUserAsync(User user);
         Task<User?> GetByEmailAsync(string email);
-        Task AddAsync(User user);
-        Task UpdateAsync(User user);
     }
 }

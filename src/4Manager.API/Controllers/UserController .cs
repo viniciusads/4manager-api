@@ -1,7 +1,8 @@
-﻿using _4Manager.Application.Features.Users.Dtos;
+﻿using _4Manager.Application.Features.Users.Commands;
+using _4Manager.Application.Features.Users.Dtos;
 using _4Manager.Application.Features.Users.Queries;
-using _4Manager.Application.Features.Users.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _4Manager.API.Controllers
@@ -18,42 +19,48 @@ namespace _4Manager.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDto>>> Get()
+        public async Task<ActionResult<IEnumerable<UserResponseDto>>> Get()
         {
             var users = await _mediator.Send(new GetUsersQuery());
             return Ok(users);
-        }
+        }     
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDto>> GetById(Guid id)
+        public async Task<ActionResult<UserResponseDto>> GetById(Guid id)
         {
             var user = await _mediator.Send(new GetUserByIdQuery(id));
-            if (user == null) return NotFound();
+            if (user == null)
+            { return NotFound();}
             return Ok(user);
         }
+       
 
-        [HttpPost("criar-usuario")]
-        public async Task<ActionResult<UserDto>> Create(CreateUserCommand command)
+        [HttpPost("cadastrar")]
+        public async Task<ActionResult<UserResponseDto>> CreateUser([FromBody] SignUpUserCommand command)
         {
             var createdUser = await _mediator.Send(command);
-            return CreatedAtAction(nameof(GetById), new { UserId = createdUser.UserId }, createdUser);
+            if (createdUser == null)
+            {
+                return BadRequest(new{ message = "Falha ao cadastrar usuário" });
+            }
+            return CreatedAtAction(nameof(GetById), new { id = createdUser.UserId }, createdUser);
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(UserCredentialsCommand command)
+        public async Task<ActionResult> Login([FromBody] LoginRequestCommand command)
         {
-            var user = await _mediator.Send(command);
-            return Ok(user);
-        }
 
-        [HttpPut("resetar-senha")]
-        public async Task<ActionResult> ResetPassword(ResetPasswordCommand command)
+            var loginResult = await _mediator.Send(command);
+
+            return Ok(loginResult);
+        }
+        
+        [HttpPost("resetar-senha")]
+        public async Task<ActionResult> ResetPassword([FromBody] ResetPasswordCommand command)
         {
             await _mediator.Send(command);
             return Ok();
         }
-
-
 
     }
 }

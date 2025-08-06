@@ -19,14 +19,13 @@ namespace _4Manager.Persistence.Context
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.ToTable("Usuarios");
+                entity.ToTable("users");
 
                 entity.HasKey(u => u.UserId);
 
                 entity.Property(u => u.Name).IsRequired().HasMaxLength(100);
                 entity.Property(u => u.Email).IsRequired().HasMaxLength(100);
-                entity.Property(u => u.PasswordHash).IsRequired().HasMaxLength(255);
-                entity.Property(u => u.Active).IsRequired();
+                entity.Property(u => u.isActive).IsRequired();
             });
         }
     }

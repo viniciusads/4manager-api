@@ -1,13 +1,12 @@
 ﻿using _4Manager.Application.Features.Users.Dtos;
 using _4Manager.Application.Features.Users.Queries;
-using _4Manager.Domain.Interfaces;
-using _4Manager.Domain.Entities;
+using _4Manager.Application.Interfaces;
 using MediatR;
 
 
 namespace _4Manager.Application.Features.Users.Handlers
 {
-    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<UserDto>>
+    public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<UserResponseDto>>
     {
         private readonly IUserRepository _repository;
 
@@ -16,15 +15,17 @@ namespace _4Manager.Application.Features.Users.Handlers
             _repository = repository;
         }
 
-        public async Task<IEnumerable<UserDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<UserResponseDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
             var usuarios = await _repository.GetAllAsync(cancellationToken);
 
-            return usuarios.Select(u => new UserDto
+            return usuarios.Select(u => new UserResponseDto
             {
                 UserId = u.UserId,
                 Name = u.Name,
-                Email = u.Email
+                Email = u.Email,
+                isActive = u.isActive,
+                Role = u.Role.ToString()
             });
         }
     }

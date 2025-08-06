@@ -4,13 +4,13 @@ using System;
 
 namespace _4Manager.Application.Features.Users.Queries
 {
-    public class GetUserByIdQuery : IRequest<UserDto?>
+    public class GetUserByIdQuery : IRequest<UserResponseDto?>
     {
         public Guid UserId { get; set; }
 
         public GetUserByIdQuery(Guid UserId)
         {
-            UserId = UserId;
+            this.UserId = UserId;
         }
     }
 }

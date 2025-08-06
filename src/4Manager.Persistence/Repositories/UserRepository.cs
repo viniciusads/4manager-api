@@ -1,5 +1,5 @@
 ﻿using _4Manager.Domain.Entities;
-using _4Manager.Domain.Interfaces;
+using _4Manager.Application.Interfaces;
 using _4Manager.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,16 +28,11 @@ namespace _4Manager.Persistence.Repositories
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
-        public async Task AddAsync(User user)
+        public async Task AddUserAsync(User user)
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(User user)
-        {
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-        }
     }
 }

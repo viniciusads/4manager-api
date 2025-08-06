@@ -8,10 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Project\**" />
+    <Compile Remove="Features\Usuarios\**" />
+    <EmbeddedResource Remove="Features\Project\**" />
+    <EmbeddedResource Remove="Features\Usuarios\**" />
+    <None Remove="Features\Project\**" />
+    <None Remove="Features\Usuarios\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.0.1" />
     <PackageReference Include="FluentValidation" Version="12.0.0" />
-	<PackageReference Include="MediatR" Version="11.1.0" />
-	<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+	<PackageReference Include="MediatR" Version="13.0.0" />
+	<PackageReference Include="Supabase" Version="1.1.1" />
+	<PackageReference Include="xunit" Version="2.9.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,11 +31,6 @@
   <ItemGroup>
     <Folder Include="Common\Behaviors\" />
     <Folder Include="Common\Exceptions\" />
-    <Folder Include="Features\Project\Commands\" />
-    <Folder Include="Features\Project\Dtos\" />
-    <Folder Include="Features\Project\Queries\" />
-    <Folder Include="Features\Usuarios\Commands\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
 
 </Project>
