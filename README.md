@@ -6,7 +6,7 @@ Este projeto é uma API desenvolvida em .NET 9 utilizando as melhores práticas 
 - **Entity Framework Core**
 - **PostgreSQL**
 - **Migrations**
-- Testes com xUnit e NSubstitute *(em breve)*
+- Testes com xUnit e NSubstitute *(em andamento)*
 
 ---
 
@@ -93,7 +93,6 @@ Vamos supor que queremos criar o módulo de `Usuários`.
 ## Testes
 
 *(em breve)* Testes unitários serão escritos usando:
-- **xUnit**
 - **NSubstitute**
 
 ---
