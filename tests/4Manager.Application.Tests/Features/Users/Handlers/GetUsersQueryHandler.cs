@@ -1,17 +1,11 @@
-﻿using Xunit;
+﻿using _4Tech._4Manager.Application.Common.Exceptions;
+using _4Tech._4Manager.Application.Features.Users.Handlers;
+using _4Tech._4Manager.Application.Features.Users.Queries;
+using _4Tech._4Manager.Application.Interfaces;
+using _4Tech._4Manager.Domain.Entities;
 using Moq;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using _4Manager.Application.Features.Users.Dtos;
-using _4Manager.Application.Features.Users.Handlers;
-using _4Manager.Application.Features.Users.Queries;
-using _4Manager.Domain.Entities;
-using _4Manager.Domain.Enums;
-using _4Manager.Application.Interfaces;
 
-namespace _4Manager.Application.Tests.Features.Users.Handlers
+namespace _4Tech._4Manager.Application.Tests.Features.Users.Handlers
 {
     public class GetUsersQueryHandlerTests
     {
@@ -48,5 +42,35 @@ namespace _4Manager.Application.Tests.Features.Users.Handlers
             Assert.Contains(result, u => u.Name == "User One");
         }
 
+        [Fact]
+
+        public async Task ReturnEmptyListWhenNoUsers()
+        {
+            var mockRepository = new Mock<IUserRepository>();
+            var handler = new GetUsersQueryHandler(mockRepository.Object);
+
+            mockRepository.Setup(repo => repo.GetAllAsync(It.IsAny<CancellationToken>()))
+              .ReturnsAsync(new List<User>());
+
+            var result = await handler.Handle(new GetUsersQuery(), CancellationToken.None);
+
+            Assert.NotNull(result);
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async Task ReturnThrowUserNotFoundException_WhenRepositoryFails()
+        {
+            var mockRepository = new Mock<IUserRepository>();
+
+            mockRepository.Setup(repo => repo.GetAllAsync(It.IsAny<CancellationToken>()))
+                .ThrowsAsync(new UserNotFoundException());
+
+            var handler = new GetUsersQueryHandler(mockRepository.Object);
+
+            await Assert.ThrowsAsync<UserNotFoundException>(() =>
+                 handler.Handle(new GetUsersQuery(), CancellationToken.None));
+        }
     }
 }
+

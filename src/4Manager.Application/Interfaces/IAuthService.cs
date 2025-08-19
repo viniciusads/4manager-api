@@ -2,13 +2,16 @@
 using Supabase.Gotrue;
 using System.Globalization;
 
-namespace _4Manager.Application.Interfaces
+namespace _4Tech._4Manager.Application.Interfaces
 {
+    public record AuthResult(Guid UserId, string AccessToken, string? RefreshToken);
     public interface IAuthService
     {
-        Task<Session?> SignUpAsync( string email, string password);
-        Task<(string AccessToken, string? RefreshToken)> LoginAsync(string email, string password);
+        Task<AuthResult> SignUpAsync(string email, string password);
+        Task<AuthResult> LoginAsync(string email, string password);
         Task ResetPasswordForEmail(string email);
-        Task UpdatePasswordAsync(string newPassword);
+        Task UpdatePasswordAsync(Guid UserId, string newPassword);
+        Task SoftDeleteUserAsync(Guid userId, CancellationToken cancellationToken);
+
     }
 }

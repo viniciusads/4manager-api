@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36301.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Manager.API", "src\4Manager.API\4Manager.API.csproj", "{1686015D-C808-4B3F-8DA7-D9E80832EF80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Tech.4Manager.API", "src\4Manager.API\4Tech.4Manager.API.csproj", "{1686015D-C808-4B3F-8DA7-D9E80832EF80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Manager.Application", "src\4Manager.Application\4Manager.Application.csproj", "{2F731DA1-3EA0-4387-9A78-0C2DFBEB6DCE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Tech.4Manager.Application", "src\4Manager.Application\4Tech.4Manager.Application.csproj", "{2F731DA1-3EA0-4387-9A78-0C2DFBEB6DCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Manager.Domain", "src\4Manager.Domain\4Manager.Domain.csproj", "{2864E20B-C2F9-4306-87DF-07F9E51F9456}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Tech.4Manager.Domain", "src\4Manager.Domain\4Tech.4Manager.Domain.csproj", "{2864E20B-C2F9-4306-87DF-07F9E51F9456}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Manager.Infrastructure", "src\4Manager.Infrastructure\4Manager.Infrastructure.csproj", "{E579B04E-B200-4B83-BAAC-A674C2ECDBB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Tech.4Manager.Infrastructure", "src\4Manager.Infrastructure\4Tech.4Manager.Infrastructure.csproj", "{E579B04E-B200-4B83-BAAC-A674C2ECDBB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Manager.Persistence", "src\4Manager.Persistence\4Manager.Persistence.csproj", "{4DBBA876-2E58-4D7E-9E47-72ECE816B942}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Tech.4Manager.Persistence", "src\4Manager.Persistence\4Tech.4Manager.Persistence.csproj", "{4DBBA876-2E58-4D7E-9E47-72ECE816B942}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Manager.Application.Tests", "tests\4Manager.Application.Tests\4Manager.Application.Tests.csproj", "{19029D9B-3CE9-4C77-99BF-72A625227DD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4Tech.4Manager.Application.Tests", "tests\4Manager.Application.Tests\4Tech.4Manager.Application.Tests.csproj", "{19029D9B-3CE9-4C77-99BF-72A625227DD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,8 @@
-﻿using _4Manager.Application.Interfaces;
-using _4Manager.Infrastructure.Services;
+﻿using _4Tech._4Manager.Application.Interfaces;
+using _4Tech._4Manager.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace _4Manager.Infrastructure.Config.DependencyInjection
+namespace _4Tech._4Manager.Infrastructure.Config.DependencyInjection
 {
     public static class InfrastructureDI
     {

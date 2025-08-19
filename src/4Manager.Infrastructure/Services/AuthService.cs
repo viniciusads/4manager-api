@@ -1,74 +1,101 @@
-﻿using _4Manager.Application.Interfaces;
-using Microsoft.Extensions.Logging;
+﻿using _4Tech._4Manager.Application.Common.Exceptions;
+using _4Tech._4Manager.Application.Interfaces;
+using _4Tech._4Manager.Domain.Entities;
+using MediatR;
 using Supabase.Gotrue;
-using Supabase.Interfaces;
+using System.Linq.Expressions;
+using System.Security.Authentication;
 
 
-namespace _4Manager.Infrastructure.Services
+namespace _4Tech._4Manager.Infrastructure.Services
 {
     public class AuthService : IAuthService
 
     {
-
         private readonly Supabase.Client _client;
+        private readonly IUserRepository _userRepository;
 
-        public AuthService(Supabase.Client client)
+        public AuthService(Supabase.Client client, IUserRepository userRepository)
         {
             _client = client;
+            _userRepository = userRepository;
         }
 
-        public async Task<(string AccessToken, string? RefreshToken)> LoginAsync(string email, string password)
+        public async Task<AuthResult> LoginAsync(string email, string password)
         {
             try
             {
                 var session = await _client.Auth.SignInWithPassword(email, password);
 
-                if (session?.AccessToken == null)
-                    throw new Exception("Token de acesso não gerado.");
+                if (session?.User == null || !Guid.TryParse(session.User.Id, out var userId))
+                    throw new AuthenticationException("Erro no login.");
 
-                return (session.AccessToken, session.RefreshToken);
+                return new AuthResult(userId, session.AccessToken, session.RefreshToken);
             }
             catch (Exception ex)
             {
-
-                if (ex.Message.Contains("Invalid login credentials"))
-                    throw new Exception("E-mail ou senha incorretos.");
-
-                if (ex.Message.Contains("Email not confirmed"))
-                    throw new Exception("Confirme seu e-mail antes de fazer login.");
-
-                throw new Exception($"Falha na autenticação: {ex.Message}");
+                throw TokenException.MapAuthException(ex);
             }
         }
 
         public async Task ResetPasswordForEmail(string email)
         {
-            var response = await _client.Auth.ResetPasswordForEmail(email);
-            if (!response)
+            try
             {
-                throw new Exception("Erro ao solicitar redefinição de senha.");
+                var response = await _client.Auth.ResetPasswordForEmail(email);
+                if (!response)
+
+                    throw new AuthenticationException("Erro ao solicitar redefinição de senha.");
+            }
+            catch (Exception ex)
+            {
+                throw TokenException.MapAuthException(ex);
+
             }
         }
 
-        public async Task<Session?> SignUpAsync(string email, string password)
+        public async Task<AuthResult> SignUpAsync(string email, string password)
         {
-            var response = await _client.Auth.SignUp(email, password);
-            if (response == null || response.User == null)
-                throw new Exception("Erro ao criar usuário no Supabase.");
-            return response;
+            try
+            {
+                var response = await _client.Auth.SignUp(email, password);
+                if (response?.User == null || !Guid.TryParse(response.User.Id, out var userId))
+                    throw new AuthenticationException("Erro ao criar usuário.");
+                return new AuthResult(userId, response.AccessToken, response.RefreshToken);
+            }
+            catch (Exception ex)
+            {
+                throw TokenException.MapAuthException(ex);
+            }
         }
 
-        public async Task UpdatePasswordAsync(string newPassword)
+        public async Task UpdatePasswordAsync(Guid UserId, string newPassword)
         {
-            var userAttributes = new UserAttributes { Password = newPassword };
+            try
+            {
+                var userAttributes = new UserAttributes { Password = newPassword };
 
-            var response = await _client.Auth.Update(userAttributes);
+                var updateUser = await _client.Auth.Update(userAttributes);
 
-            if (response?.Id == null)
-                throw new Exception("Falha ao atualizar a senha.");
+                if (updateUser?.Id == null || !Guid.TryParse(updateUser.Id, out var updateId))
+                    throw new AuthenticationException("Falha ao atualizar a senha.");
+            }
+            catch (Exception ex)
+            {
+                throw TokenException.MapAuthException(ex);
+            }
         }
 
+        public async Task SoftDeleteUserAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
+            if (user == null)
+                throw new AuthenticationException("Usuário não encontrado.");
+
+            user.IsActive = false;
+            await _userRepository.UpdateUserAsync(user, cancellationToken);
+
+
+        }
     }
-
 }
-

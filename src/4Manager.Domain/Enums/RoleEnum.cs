@@ -1,5 +1,4 @@
-﻿
-namespace _4Manager.Domain.Enums
+﻿namespace _4Tech._4Manager.Domain.Enums
 {
     public enum RoleEnum
     {

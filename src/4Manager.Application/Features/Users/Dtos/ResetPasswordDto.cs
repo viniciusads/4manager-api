@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace _4Manager.Application.Features.Users.Dtos
+﻿namespace _4Tech._4Manager.Application.Features.Users.Dtos
 {
     public class ResetPasswordDto
     {

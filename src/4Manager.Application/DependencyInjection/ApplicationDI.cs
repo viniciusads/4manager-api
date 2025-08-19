@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace _4Manager.Application.DependencyInjection
+namespace _4Tech._4Manager.Application.DependencyInjection
 {
     public static class ApplicationDI
     {

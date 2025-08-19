@@ -1,11 +1,10 @@
-﻿using _4Manager.Application.Features.Users.Commands;
-using _4Manager.Application.Features.Users.Dtos;
-using _4Manager.Application.Interfaces;
+﻿using _4Tech._4Manager.Application.Interfaces;
+using _4Tech._4Manager.Application.Features.Users.Commands;
 using MediatR;
 
-namespace _4Manager.Application.Features.Users.Handlers
+namespace _4Tech._4Manager.Application.Features.Users.Handlers
 {
-    public class LoginRequestCommandHandler : IRequestHandler<LoginRequestCommand, LoginResponseDto>
+    public class LoginRequestCommandHandler : IRequestHandler<LoginRequestCommand, AuthResult>
     {
        
         private readonly IAuthService _authService;
@@ -18,23 +17,17 @@ namespace _4Manager.Application.Features.Users.Handlers
             _repository = repository;
         }
 
-        public async Task<LoginResponseDto> Handle(LoginRequestCommand request, CancellationToken cancellationToken)
+        public async Task<AuthResult> Handle(LoginRequestCommand request, CancellationToken cancellationToken)
         {
-            var (accessToken, refreshToken) = await _authService.LoginAsync(request.Email, request.Password);
+            var loginResult = await _authService.LoginAsync(request.Email, request.Password);
 
-            var user = await _repository.GetByEmailAsync(request.Email);
+            var user = await _repository.GetByEmailAsync(request.Email, cancellationToken);
 
-            if (user == null)
-            {
-                throw new Exception("Usuário não encontrado.");
-            }
-
-            return new LoginResponseDto
-            {
-                AccessToken = accessToken,
-                RefreshToken = refreshToken,
-                Email = request.Email
-            };
+          return new AuthResult(
+              user.UserId,
+              loginResult.AccessToken,
+              loginResult.RefreshToken
+              ); 
         }
     }
 }

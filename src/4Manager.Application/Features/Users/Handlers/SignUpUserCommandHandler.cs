@@ -1,55 +1,42 @@
-﻿using _4Manager.Application.Features.Users.Commands;
-using _4Manager.Application.Features.Users.Dtos;
-using _4Manager.Application.Interfaces;
-using _4Manager.Domain.Entities;
-using _4Manager.Domain.Enums;
+﻿using _4Tech._4Manager.Domain.Entities;
+using _4Tech._4Manager.Application.Features.Users.Commands;
+using _4Tech._4Manager.Application.Features.Users.Dtos;
+using _4Tech._4Manager.Domain.Enums;
 using MediatR;
-using Supabase;
+using _4Tech._4Manager.Application.Interfaces;
+using AutoMapper;
 
-namespace _4Manager.Application.Features.Users.Handlers
+namespace _4tech._4Manager.Application.Features.Users.Handlers
 {
     public class SignUpUserCommandHandler : IRequestHandler<SignUpUserCommand, UserResponseDto>
     {
         private readonly IUserRepository _repository;
         private readonly IAuthService _authService;
+        private readonly IMapper _mapper;
 
-        public SignUpUserCommandHandler(IAuthService authService, IUserRepository repository)
+        public SignUpUserCommandHandler(IAuthService authService, IUserRepository repository, IMapper mapper)
         {
             _authService = authService;
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task<UserResponseDto> Handle(SignUpUserCommand request, CancellationToken cancellationToken)
         {
-            if (request.Password != request.ConfirmPassword)
-                throw new Exception("As senhas não coincidem.");
-
-            var session = await _authService.SignUpAsync(request.Email, request.Password);
-
-            if (session?.User?.Id == null)
-                throw new Exception("Falha ao criar usuário no Supabase.");
-
-            var supabaseUserId = session.User.Id;
+            var authResult = await _authService.SignUpAsync(request.Email, request.Password);
 
             var user = new User
             {
-                UserId = Guid.Parse(supabaseUserId),
+                UserId = authResult.UserId,
                 Name = request.Name,
                 Email = request.Email,
-                isActive = true,
+                IsActive = true,
                 Role = RoleEnum.Analista
             };
 
-            await _repository.AddUserAsync(user);
+            await _repository.AddUserAsync(user, cancellationToken);
 
-            return new UserResponseDto
-            {
-                UserId = user.UserId,
-                Name = user.Name,
-                Email = user.Email,
-                isActive = true,
-                Role = user.Role.ToString()
-            };
+            return _mapper.Map<UserResponseDto>(user);
         }
     }
 }

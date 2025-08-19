@@ -1,4 +1,4 @@
-﻿using _4Manager.Domain.Entities;
+﻿using _4Tech._4Manager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -10,7 +10,6 @@ namespace _4Manager.Persistence.Context
             : base(options)
         {
         }
-
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,7 +24,8 @@ namespace _4Manager.Persistence.Context
 
                 entity.Property(u => u.Name).IsRequired().HasMaxLength(100);
                 entity.Property(u => u.Email).IsRequired().HasMaxLength(100);
-                entity.Property(u => u.isActive).IsRequired();
+                entity.Property(u => u.IsActive).IsRequired();
+                entity.Property(u => u.Role).IsRequired();
             });
         }
     }

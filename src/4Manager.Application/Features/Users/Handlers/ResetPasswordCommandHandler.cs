@@ -1,10 +1,10 @@
-﻿using MediatR;
+﻿using _4Tech._4Manager.Application.Features.Users.Commands;
+using _4Tech._4Manager.Application.Interfaces;
+using MediatR;
 using Supabase;
-using _4Manager.Application.Features.Users.Commands;
-using _4Manager.Application.Features.Users.Dtos;
-using _4Manager.Application.Interfaces;
+using System.Security.Authentication;
 
-namespace _4Manager.Application.Features.Users.Handlers
+namespace _4Tech._4Manager.Application.Features.Users.Handlers
 {
     public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, Unit>
     {
@@ -17,6 +17,8 @@ namespace _4Manager.Application.Features.Users.Handlers
 
         public async Task<Unit> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
+            if (string.IsNullOrWhiteSpace(request.Email))
+                throw new AuthenticationException("O e-mail não pode ser nulo ou vazio.");
 
             await _authService.ResetPasswordForEmail(request.Email);
             return Unit.Value;

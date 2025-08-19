@@ -1,7 +1,7 @@
-﻿using _4Manager.Application.Features.Users.Dtos;
+﻿using _4Tech._4Manager.Application.Features.Users.Dtos;
 using MediatR;
 
-namespace _4Manager.Application.Features.Users.Commands
+namespace _4Tech._4Manager.Application.Features.Users.Commands
 {
     public class SignUpUserCommand : IRequest<UserResponseDto>
     {

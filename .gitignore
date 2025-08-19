@@ -60,5 +60,7 @@ node_modules/
 ## Outros
 .env
 .env.*
+!.env.example
 *.sqlite
 *.db
+/src/4Manager.API/.env

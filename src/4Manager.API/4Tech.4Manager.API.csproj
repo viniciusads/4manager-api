@@ -4,12 +4,14 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>_4Manager.API</RootNamespace>
-    <UserSecretsId>a957bef8-939b-4411-9940-65152ac647d5</UserSecretsId>
+    <RootNamespace>_4Tech._4Manager.API</RootNamespace>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="9.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="9.0.0" />
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
     <PackageReference Include="FluentValidation" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="13.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
@@ -18,22 +20,24 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="9.8.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.13.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="Supabase" Version="1.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
     <PackageReference Include="xunit" Version="2.9.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\4Manager.Application\4Manager.Application.csproj" />
-    <ProjectReference Include="..\4Manager.Infrastructure\4Manager.Infrastructure.csproj" />
-    <ProjectReference Include="..\4Manager.Persistence\4Manager.Persistence.csproj" />
+    <ProjectReference Include="..\4Manager.Application\4Tech.4Manager.Application.csproj" />
+    <ProjectReference Include="..\4Manager.Infrastructure\4Tech.4Manager.Infrastructure.csproj" />
+    <ProjectReference Include="..\4Manager.Persistence\4Tech.4Manager.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Middlewares\" />
     <Folder Include="Extensions\" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using _4Manager.Application.Features.Users.Commands;
+using _4Tech._4Manager.Application.Features.Users.Commands;
 
-namespace _4Manager.Application.Features.Users.Validators
+namespace _4Tech._4Manager.Application.Features.Users.Validators
 {
     public class LoginValidator : AbstractValidator<LoginRequestCommand>
     {
@@ -13,6 +13,8 @@ namespace _4Manager.Application.Features.Users.Validators
 
             RuleFor(user => user.Password)
                 .NotEmpty().WithMessage("A senha é obrigatória.")
+                .Matches("[A-Z]").WithMessage("A senha deve conter ao menos uma letra maiúscula.")
+                .Matches("[0-9]").WithMessage("A senha deve conter ao menos um número.")
                 .MinimumLength(6).WithMessage("A senha deve ter pelo menos 6 caracteres.");
         }
     }

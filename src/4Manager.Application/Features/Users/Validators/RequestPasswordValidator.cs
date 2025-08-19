@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using _4Manager.Application.Features.Users.Commands;
+using _4Tech._4Manager.Application.Features.Users.Commands;
 
-namespace _4Manager.Application.Features.Users.Validators
+namespace _4Tech._4Manager.Application.Features.Users.Validators
 {
     public class ResetPasswordValidator : AbstractValidator<ResetPasswordCommand>
     {

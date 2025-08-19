@@ -1,10 +1,11 @@
-﻿using _4Manager.Application.Features.Users.Dtos;
-using _4Manager.Application.Features.Users.Queries;
-using _4Manager.Application.Interfaces;
+﻿
+using _4Tech._4Manager.Application.Features.Users.Dtos;
+using _4Tech._4Manager.Application.Features.Users.Queries;
+using _4Tech._4Manager.Application.Interfaces;
 using MediatR;
 
 
-namespace _4Manager.Application.Features.Users.Handlers
+namespace _4Tech._4Manager.Application.Features.Users.Handlers
 {
     public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, IEnumerable<UserResponseDto>>
     {
@@ -17,14 +18,18 @@ namespace _4Manager.Application.Features.Users.Handlers
 
         public async Task<IEnumerable<UserResponseDto>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var usuarios = await _repository.GetAllAsync(cancellationToken);
+            var users = await _repository.GetAllAsync(cancellationToken);
 
-            return usuarios.Select(u => new UserResponseDto
+            var pagedUsers = users
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize);
+
+            return pagedUsers.Select(u => new UserResponseDto
             {
                 UserId = u.UserId,
                 Name = u.Name,
                 Email = u.Email,
-                isActive = u.isActive,
+                IsActive = u.IsActive,
                 Role = u.Role.ToString()
             });
         }

@@ -1,10 +1,10 @@
-﻿using _4Manager.Application.Interfaces;
+﻿using _4Tech._4Manager.Application.Interfaces;
 using _4Manager.Persistence.Context;
 using _4Manager.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace _4Manager.Persistence.Config.DependencyInjection
+namespace _4Tech._4Manager.Persistence.Config.DependencyInjection
 {
     public static class PersistenceDI
     {

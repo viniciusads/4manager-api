@@ -1,16 +1,13 @@
 ﻿using Xunit;
 using Moq;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using _4Manager.Application.Features.Users.Dtos;
-using _4Manager.Application.Features.Users.Handlers;
-using _4Manager.Application.Features.Users.Queries;
-using _4Manager.Domain.Entities;
-using _4Manager.Domain.Enums;
-using _4Manager.Application.Interfaces;
+using _4Tech._4Manager.Domain.Entities;
+using _4Tech._4Manager.Application.Interfaces;
+using _4Tech._4Manager.Application.Features.Users.Handlers;
+using _4Tech._4Manager.Application.Features.Users.Queries;
+using AutoMapper;
+using _4Tech._4Manager.Application.Features.Users.Dtos;
 
-namespace _4Manager.Application.Tests.Features.Users.Handlers
+namespace _4Tech._4Manager.Application.Tests.Features.Users.Handlers
 {
     public class GetUserByIdQueryHandlerTests
     {
@@ -18,7 +15,9 @@ namespace _4Manager.Application.Tests.Features.Users.Handlers
         public async Task UserExists_ReturnsUserResponseDto()
         {
             var mockRepository = new Mock<IUserRepository>();
+            var mockMapper = new Mock<IMapper>();
             var userId = Guid.NewGuid();
+            var cancellationToken = CancellationToken.None;
 
             var user = new User
             {
@@ -27,10 +26,20 @@ namespace _4Manager.Application.Tests.Features.Users.Handlers
                 Email = "user@gmail.com"
             };
 
-            mockRepository.Setup(repo => repo.GetByIdAsync(userId))
+            var userResponseDto = new UserResponseDto
+            {
+                UserId = userId,
+                Name = "User",
+                Email = "user@gmail.com"
+            };
+
+            mockRepository.Setup(repo => repo.GetByIdAsync(userId, cancellationToken))
                 .ReturnsAsync(user);
 
-            var handler = new GetUserByIdQueryHandler(mockRepository.Object);
+            mockMapper.Setup(m => m.Map<UserResponseDto>(user))
+                .Returns(userResponseDto);
+
+            var handler = new GetUserByIdQueryHandler(mockRepository.Object, mockMapper.Object);
 
             var result = await handler.Handle(new GetUserByIdQuery(userId), CancellationToken.None);
 
@@ -44,11 +53,14 @@ namespace _4Manager.Application.Tests.Features.Users.Handlers
         public async Task UserDoesNotExist_ReturnsNull()
         {
             var userRepositoryMock = new Mock<IUserRepository>();
-            userRepositoryMock
-                .Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>()))
-                .ReturnsAsync((User?)null);
+            var mockMapper = new Mock<IMapper>();
+            var cancellationToken = CancellationToken.None;
 
-            var handler = new GetUserByIdQueryHandler(userRepositoryMock.Object);
+            userRepositoryMock
+                .Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>(), cancellationToken))
+                .ReturnsAsync((User)null);
+
+            var handler = new GetUserByIdQueryHandler(userRepositoryMock.Object, mockMapper.Object);
             var query = new GetUserByIdQuery(Guid.NewGuid());
 
             var result = await handler.Handle(query, CancellationToken.None);
