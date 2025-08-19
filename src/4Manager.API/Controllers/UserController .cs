@@ -69,5 +69,14 @@ namespace _4Tech._4Manager.API.Controllers
             return NoContent();
         }
 
+        [HttpPut("{id}")]
+
+        public async Task<ActionResult<UserResponseDto>> Update(Guid id, [FromBody] UpdateUserCommand command)
+        {
+            var updatedUser = await _mediator.Send(command);
+           
+            return Ok(updatedUser);
+        }
+
     }
 }
