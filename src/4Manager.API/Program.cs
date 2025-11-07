@@ -13,11 +13,17 @@ using System.Text;
 DotNetEnv.Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
-static string GetEnv(string name)
+string GetEnv(string key, string? configSection = null)
 {
-    return DotNetEnv.Env.GetString(name)
-           ?? throw new InvalidOperationException($"{name} não está configurado.");
+    var value = DotNetEnv.Env.GetString(key)
+                ?? configuration[configSection ?? key];
+
+    if (string.IsNullOrWhiteSpace(value))
+        throw new InvalidOperationException($"{key} não está configurado.");
+
+    return value;
 }
 
 var url = GetEnv("SUPABASE_PROJECT_URL");
@@ -26,7 +32,10 @@ var serviceRoleKey = GetEnv("SUPABASE_SERVICE_ROLE_KEY");
 var jwtSecret = GetEnv("JWT_SECRET");
 var validIssuer = GetEnv("AUTH_VALID_ISSUER");
 var validAudience = GetEnv("AUTH_VALID_AUDIENCE");
-var connectionString = GetEnv("DB_CONNECTION");
+
+var connectionString = DotNetEnv.Env.GetString("DB_CONNECTION")
+                       ?? configuration.GetConnectionString("DefaultConnection")
+                       ?? throw new InvalidOperationException("A connection string não foi configurada.");
 
 var options = new SupabaseOptions { AutoRefreshToken = true, AutoConnectRealtime = true };
 
