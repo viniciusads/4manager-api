@@ -14,7 +14,7 @@ namespace _4Tech._4Manager.Persistence.Config.DependencyInjection
                 options.UseNpgsql(connectionString));
 
             services.AddScoped<IUserRepository, UserRepository>();
-
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             return services;
         }
     }
