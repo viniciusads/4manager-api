@@ -9,6 +9,8 @@ namespace _4Tech._4Manager.Application.Features.Customers.Commands
         public string Name { get; set; } = string.Empty;
         public bool IsActive { get; set; }
 
+        public UpdateCustomerCommand() {}
+
         public UpdateCustomerCommand(Guid customerId, string name, bool isActive)
         {
             CustomerId = customerId;

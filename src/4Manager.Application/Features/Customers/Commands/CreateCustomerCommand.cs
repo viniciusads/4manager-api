@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using _4Tech._4Manager.Application.Features.Customers.Dtos;
 using MediatR;
 
@@ -7,6 +8,8 @@ namespace _4Tech._4Manager.Application.Features.Customers.Commands
     {
         public string Name { get; set; } = string.Empty;
 
+        public CreateCustomerCommand() {}
+        
         public CreateCustomerCommand(string name)
         {
             Name = name;

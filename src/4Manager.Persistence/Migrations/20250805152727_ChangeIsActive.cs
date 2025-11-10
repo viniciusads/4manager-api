@@ -15,13 +15,11 @@ namespace _4Manager.Persistence.Migrations
                 table: "Usuarios",
                 newName: "isActive");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "Role",
-                table: "Usuarios",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "text");
+            migrationBuilder.Sql(@"
+                ALTER TABLE ""Usuarios"" 
+                ALTER COLUMN ""Role"" TYPE integer 
+                USING 0;
+            ");
 
             migrationBuilder.AlterColumn<string>(
                 name: "PasswordHash",
@@ -41,13 +39,12 @@ namespace _4Manager.Persistence.Migrations
                 table: "Usuarios",
                 newName: "Active");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Role",
-                table: "Usuarios",
-                type: "text",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer");
+            // Reversão: converter de integer para text
+            migrationBuilder.Sql(@"
+                ALTER TABLE ""Usuarios"" 
+                ALTER COLUMN ""Role"" TYPE text 
+                USING 'Analista';
+            ");
 
             migrationBuilder.AlterColumn<string>(
                 name: "PasswordHash",
