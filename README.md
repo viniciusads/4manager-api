@@ -1,12 +1,13 @@
 # 4manager-api
 
 Este projeto é uma API desenvolvida em .NET 9 utilizando as melhores práticas de arquitetura, incluindo:
+
 - **CQRS com MediatR**
 - **FluentValidation**
 - **Entity Framework Core**
 - **PostgreSQL**
 - **Migrations**
-- Testes com xUnit e NSubstitute *(em andamento)*
+- Testes com xUnit e NSubstitute _(em andamento)_
 
 ---
 
@@ -26,6 +27,7 @@ src/
 ## Como rodar o projeto localmente
 
 1. **Pré-requisitos**
+
    - [.NET SDK 9.0+](https://dotnet.microsoft.com/download)
    - [PostgreSQL](https://www.postgresql.org/)
    - [Visual Studio 2022+ ou VS Code](https://code.visualstudio.com/)
@@ -54,9 +56,10 @@ Isso criará as tabelas no seu banco com base nas entidades mapeadas no `DbConte
 
 ---
 
-##  Padrões e Tecnologias
+## Padrões e Tecnologias
 
 ### CQRS com MediatR
+
 - **Command**: utilizado para criar, atualizar ou deletar dados
 - **Query**: utilizado para consultar dados
 - Os comandos e queries são processados por `Handlers`.
@@ -65,6 +68,7 @@ Isso criará as tabelas no seu banco com base nas entidades mapeadas no `DbConte
 > As queries ficam em `4Manager.Application.Features.[Nome]/Queries`
 
 ### FluentValidation
+
 Validações são feitas nos arquivos `RequestValidator` e são executadas antes dos comandos/queries serem processados.
 
 ```csharp
@@ -72,6 +76,7 @@ RuleFor(x => x.Nome).NotEmpty().WithMessage("Nome é obrigatório");
 ```
 
 ### 🐘 Entity Framework Core com PostgreSQL
+
 Utilizamos EF Core como ORM e PostgreSQL como banco de dados. As migrations ficam em `4Manager.Persistence/Migrations`.
 
 ---
@@ -92,7 +97,8 @@ Vamos supor que queremos criar o módulo de `Usuários`.
 
 ## Testes
 
-*(em breve)* Testes unitários serão escritos usando:
+_(em breve)_ Testes unitários serão escritos usando:
+
 - **NSubstitute**
 
 ---
@@ -118,4 +124,5 @@ Este projeto segue boas práticas e Clean Architecture. Siga os padrões existen
 ## Suporte
 
 Se tiver dúvidas:
+
 - Consulte a pasta `/Application/Features` para entender os padrões
