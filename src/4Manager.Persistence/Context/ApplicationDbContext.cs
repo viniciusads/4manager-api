@@ -27,6 +27,17 @@ namespace _4Manager.Persistence.Context
                 entity.Property(u => u.IsActive).IsRequired();
                 entity.Property(u => u.Role).IsRequired();
             });
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.ToTable("customers");
+
+                entity.HasKey(c => c.CustomerId);
+
+                entity.Property(c => c.Name).IsRequired().HasMaxLength(100);
+                entity.Property(c => c.IsActive).IsRequired();
+                entity.Property(c => c.CreatedAt).IsRequired();
+            });
         }
     }
 }
