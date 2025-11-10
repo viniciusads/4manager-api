@@ -101,7 +101,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
     };
 });
 
-builder.Services.AddAutoMapper(typeof(UserProfile));
+builder.Services.AddAutoMapper(typeof(UserProfile), typeof(CustomerProfile));
 builder.Services.AddApplication();
 builder.Services.AddPersistence(connectionString);
 builder.Services.AddInfrastructure();
