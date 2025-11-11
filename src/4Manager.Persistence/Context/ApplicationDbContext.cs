@@ -34,6 +34,9 @@ namespace _4Manager.Persistence.Context
 
                 entity.HasKey(c => c.CustomerId);
 
+                entity.Property(c => c.CustomerId)
+                    .HasDefaultValueSql("gen_random_uuid()");
+
                 entity.Property(c => c.Name).IsRequired().HasMaxLength(100);
                 entity.Property(c => c.IsActive).IsRequired();
                 entity.Property(c => c.CreatedAt).IsRequired();
