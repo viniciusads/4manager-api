@@ -61,14 +61,15 @@ namespace _4Tech._4Manager.Application.Tests.Features.Customers.Handlers
             var customerId = Guid.NewGuid();
             var mockRepo = new Mock<ICustomerRepository>();
             mockRepo.Setup(r => r.GetByIdAsync(customerId, It.IsAny<CancellationToken>()))
-                .ThrowsAsync(new CustomerNotFoundException($"Cliente com id {customerId} não encontrado."));
+                .ReturnsAsync((Customer)null!);
 
             var command = new DeleteCustomerCommand(customerId);
             var handler = new DeleteCustomerCommandHandler(mockRepo.Object, _mapper);
 
-            await Assert.ThrowsAsync<CustomerNotFoundException>(() =>
+            var exception = await Assert.ThrowsAsync<CustomerNotFoundException>(() =>
                 handler.Handle(command, CancellationToken.None));
 
+            Assert.Equal($"Cliente com id {customerId} não encontrado.", exception.Message);
             mockRepo.Verify(r => r.GetByIdAsync(customerId, It.IsAny<CancellationToken>()), Times.Once);
             mockRepo.Verify(r => r.DeleteCustomerAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()), Times.Never);
         }
