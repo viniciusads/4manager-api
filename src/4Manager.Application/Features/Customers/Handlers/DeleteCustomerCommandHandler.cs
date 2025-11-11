@@ -1,3 +1,4 @@
+using _4Tech._4Manager.Application.Common.Exceptions;
 using _4Tech._4Manager.Application.Features.Customers.Commands;
 using _4Tech._4Manager.Application.Features.Customers.Dtos;
 using _4Tech._4Manager.Application.Interfaces;
@@ -19,7 +20,8 @@ namespace _4Tech._4Manager.Application.Features.Customers.Handlers
 
         public async Task<CustomerResponseDto> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
         {
-            var customer = await _repository.GetByIdAsync(request.CustomerId, cancellationToken);
+            var customer = await _repository.GetByIdAsync(request.CustomerId, cancellationToken)
+                ?? throw new CustomerNotFoundException($"Cliente com id {request.CustomerId} não encontrado.");
 
             await _repository.DeleteCustomerAsync(request.CustomerId, cancellationToken);
 
