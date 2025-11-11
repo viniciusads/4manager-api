@@ -1,7 +1,6 @@
 ﻿using _4Tech._4Manager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace _4Manager.Persistence.Context
 {
     public class ApplicationDbContext : DbContext

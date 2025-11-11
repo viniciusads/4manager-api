@@ -22,7 +22,6 @@ namespace _4Tech._4Manager.Application.Features.Customers.Handlers
         {
             var customer = new Customer
             {
-                CustomerId = Guid.NewGuid(),
                 Name = request.Name,
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
