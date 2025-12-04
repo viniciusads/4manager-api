@@ -9,18 +9,18 @@ namespace _4Manager.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-          
             migrationBuilder.Sql(@"
                 DO $$
                 BEGIN
                     IF EXISTS (SELECT 1 FROM information_schema.tables 
-                              WHERE table_schema = 'public' AND table_name = 'Usuarios') THEN
+                              WHERE table_schema = 'public' AND table_name = 'Usuarios')
+                       AND NOT EXISTS (SELECT 1 FROM information_schema.tables 
+                                      WHERE table_schema = 'public' AND table_name = 'users') THEN
                         ALTER TABLE ""Usuarios"" RENAME TO ""users"";
                     END IF;
                 END $$;
             ");
 
-       
             migrationBuilder.Sql(@"
                 ALTER TABLE IF EXISTS ""users""
                 ADD COLUMN IF NOT EXISTS ""IsActive"" boolean NOT NULL DEFAULT true;
@@ -33,7 +33,9 @@ namespace _4Manager.Persistence.Migrations
                 DO $$
                 BEGIN
                     IF EXISTS (SELECT 1 FROM information_schema.tables 
-                              WHERE table_schema = 'public' AND table_name = 'users') THEN
+                              WHERE table_schema = 'public' AND table_name = 'users')
+                       AND NOT EXISTS (SELECT 1 FROM information_schema.tables 
+                                      WHERE table_schema = 'public' AND table_name = 'Usuarios') THEN
                         ALTER TABLE ""users"" RENAME TO ""Usuarios"";
                     END IF;
                 END $$;

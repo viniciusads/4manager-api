@@ -1,0 +1,9 @@
+namespace _4Tech._4Manager.Application.Common.Pagination
+{
+    public static class PaginationDefaults
+    {
+        public const int DefaultPageNumber = 1;
+        public const int DefaultPageSize = 10;
+    }
+}
+
