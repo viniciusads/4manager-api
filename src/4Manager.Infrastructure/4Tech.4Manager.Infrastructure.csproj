@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>_4Tech._4Manager.Infrastructure</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\4Manager.Application\4Tech.4Manager.Application.csproj" />
+    <ProjectReference Include="..\4Manager.Domain\4Tech.4Manager.Domain.csproj" />
+    <ProjectReference Include="..\4Manager.Persistence\4Tech.4Manager.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logging\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="9.8.0" />
+    <PackageReference Include="Supabase" Version="1.1.1" />
+  </ItemGroup>
+
+</Project>
