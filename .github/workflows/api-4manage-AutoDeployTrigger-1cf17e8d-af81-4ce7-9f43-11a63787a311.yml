@@ -24,6 +24,21 @@ jobs:
       - name: Checkout to the branch
         uses: actions/checkout@v2
 
+      # ==========================================
+      # ETAPA DE CI: SETUP E TESTES
+      # ==========================================
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Rodar Testes de Unidade (Application Layer)
+        # Aponta exatamente para a pasta que você me mostrou no print
+        run: dotnet test tests/4Manager.Application.Tests/ --configuration Release
+
+      # ==========================================
+      # ETAPA DE CD: DEPLOY NO AZURE
+      # ==========================================
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -42,5 +57,5 @@ jobs:
           containerAppName: api-4manage
           resourceGroup: rg-4manage
           imageToBuild: acrteste4managerapi-a6bqbxfghye5gbcr.azurecr.io/api-4manage:${{ github.sha }}
-          targetPort: 80
+          targetPort: 8080
           containerAppExists: true
