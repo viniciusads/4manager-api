@@ -43,3 +43,4 @@ jobs:
           resourceGroup: rg-4manage
           imageToBuild: acrteste4managerapi-a6bqbxfghye5gbcr.azurecr.io/api-4manage:${{ github.sha }}
           targetPort: 80
+          containerAppExists: true
