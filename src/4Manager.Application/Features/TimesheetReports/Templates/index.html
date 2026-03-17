@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="page summary-page">
+        <div class="summary-title">
+            <h1>Relatório Resumido</h1>
+            <h2>Usuário: {{UserName}}</h2>
+        </div>
+        <p class="date-range">{{DateRange}}</p>
+
+        <div class="summary-box">
+            <div class="summary-item">
+                <div class="label">Horas totais</div>
+                <div class="value">{{TotalHours}}</div>
+            </div>
+            <div class="summary-item">
+                <div class="label">Média de horas diárias</div>
+                <div class="value">{{AverageDailyHours}}</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h2>Duração diária</h2>
+            <canvas id="barChart" width="800" height="300"></canvas>
+        </div>
+        </br>
+        </br>
+        <div class="chart-container doughnut">
+            <h2>Distribuição de horas por projeto</h2>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="width: 300px; height: 300px; margin-bottom: 10px; position:relative;">
+                    <span style="position: absolute; top: 130px; left: 70px; color: #172D44; font-size:40px;">
+                        {{TotalHours}}
+                    </span>
+                    <canvas id="donutChart"></canvas>
+                </div>
+                <div>
+                    <h2 style="display:flex; justify-content: center;">
+                        Porcentagem de hora por projeto
+                    </h2>
+                    <div class="legend">
+
+                        {{ProjectLegend}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="page breakdown-page">
+        <h2 class="breakdown-title">Detalhamento por projeto</h2>
+
+        <div class="breakdown-header">
+            <div class="header-project">PROJETO | DESCRIÇÃO</div>
+            <div class="header-duration">DURAÇÃO</div>
+            <div class="header-percentage">DURAÇÃO %</div>
+        </div>
+
+        {{PROJECT_BREAKDOWN}}
+
+        <div class="total-row">
+            <div class="total-label">TOTAL</div>
+            <div class="total-duration">{{TotalHours}}</div>
+            <div class="total-percentage">100%</div>
+        </div>
+    </div>
+
+    <script>
+    const barChartData = {{BarChartData}};
+    const donutChartData = {{DonutChartData}};
+
+    window.addEventListener('DOMContentLoaded', function() {
+      new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+          labels: barChartData.labels,
+          datasets: [{
+            label: 'Hours',
+            data: barChartData.values,
+            backgroundColor: barChartData.colors,
+            borderRadius: 5,
+            maxBarThickness: 60
+          }]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false,
+          animation: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { stepSize: 2 }
+            }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('donutChart'), {
+        type: 'doughnut',
+        data: {
+          labels: donutChartData.labels,
+          datasets: [{
+            data: donutChartData.values,
+            backgroundColor: donutChartData.colors,
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false,
+          animation: false,
+          cutout: '70%',
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      window.status = 'ready';
+    });
+    </script>
+</body>
+</html>

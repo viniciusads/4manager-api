@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="page summary-page">
+        <div class="summary-title">
+            <h1>Relatório Resumido</h1>
+            <h2>Usuário: Brenda Pilet</h2>
+        </div>
+        <p class="date-range">06/02/2026 - 19/02/2026</p>
+
+        <div class="summary-box">
+            <div class="summary-item">
+                <div class="label">Horas totais</div>
+                <div class="value">28:25:05</div>
+            </div>
+            <div class="summary-item">
+                <div class="label">Média de horas diárias</div>
+                <div class="value">4,06 Horas</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h2>Duração diária</h2>
+            <canvas id="barChart" width="800" height="300"></canvas>
+        </div>
+        </br>
+        </br>
+        <div class="chart-container doughnut">
+            <h2>Distribuição de horas por projeto</h2>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="width: 300px; height: 300px; margin-bottom: 10px; position:relative;">
+                    <span style="position: absolute; top: 130px; left: 70px; color: #172D44; font-size:40px;">
+                        28:25:05
+                    </span>
+                    <canvas id="donutChart"></canvas>
+                </div>
+                <div>
+                    <h2 style="display:flex; justify-content: center;">
+                        Porcentagem de hora por projeto
+                    </h2>
+                    <div class="legend">
+
+                        <div class="legend-item">
+    <div class="legend-color" style="background-color: #5D1F1A"></div>
+    <div class="legend-details">
+    <span>Conecta</span>
+    <span>43,6%</span>
+    </div>
+</div><div class="legend-item">
+    <div class="legend-color" style="background-color: #164B35"></div>
+    <div class="legend-details">
+    <span>10project</span>
+    <span>33,5%</span>
+    </div>
+</div><div class="legend-item">
+    <div class="legend-color" style="background-color: #352C63"></div>
+    <div class="legend-details">
+    <span>4project</span>
+    <span>22,9%</span>
+    </div>
+</div><div class="legend-item">
+    <div class="legend-color" style="background-color: #0055CC"></div>
+    <div class="legend-details">
+    <span>Sem Projeto</span>
+    <span>0%</span>
+    </div>
+</div><div class="legend-item">
+    <div class="legend-color" style="background-color: #5E4DB2"></div>
+    <div class="legend-details">
+    <span>17project</span>
+    <span>0%</span>
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="page breakdown-page">
+        <h2 class="breakdown-title">Detalhamento por projeto</h2>
+
+        <div class="breakdown-header">
+            <div class="header-project">PROJETO | DESCRIÇÃO</div>
+            <div class="header-duration">DURAÇÃO</div>
+            <div class="header-percentage">DURAÇÃO %</div>
+        </div>
+
+        <div class="project-group">
+    <div class="project-row">
+        <div class="project-name">
+            <span class="bullet" style="background-color: #5D1F1A">•</span>
+            Conecta
+        </div>
+        <div class="project-duration">12:23:11</div>
+        <div class="project-percentage">43,59%</div>
+    </div><div class="item-row">
+    <div class="item-description">teste</div>
+    <div class="item-duration">01:15:00</div>
+    <div class="item-percentage">4,40%</div>
+</div><div class="item-row">
+    <div class="item-description">testestests</div>
+    <div class="item-duration">02:08:00</div>
+    <div class="item-percentage">7,51%</div>
+</div><div class="item-row">
+    <div class="item-description">oi</div>
+    <div class="item-duration">09:00:00</div>
+    <div class="item-percentage">31,67%</div>
+</div><div class="item-row">
+    <div class="item-description">teste</div>
+    <div class="item-duration">00:00:11</div>
+    <div class="item-percentage">0,01%</div>
+</div></div><div class="project-group">
+    <div class="project-row">
+        <div class="project-name">
+            <span class="bullet" style="background-color: #164B35">•</span>
+            10project
+        </div>
+        <div class="project-duration">09:30:00</div>
+        <div class="project-percentage">33,43%</div>
+    </div><div class="item-row">
+    <div class="item-description">oi</div>
+    <div class="item-duration">09:30:00</div>
+    <div class="item-percentage">33,43%</div>
+</div></div><div class="project-group">
+    <div class="project-row">
+        <div class="project-name">
+            <span class="bullet" style="background-color: #352C63">•</span>
+            4project
+        </div>
+        <div class="project-duration">06:31:30</div>
+        <div class="project-percentage">22,96%</div>
+    </div><div class="item-row">
+    <div class="item-description">descricao</div>
+    <div class="item-duration">03:45:00</div>
+    <div class="item-percentage">13,20%</div>
+</div><div class="item-row">
+    <div class="item-description">teste</div>
+    <div class="item-duration">02:45:00</div>
+    <div class="item-percentage">9,68%</div>
+</div><div class="item-row">
+    <div class="item-description">oi</div>
+    <div class="item-duration">00:01:30</div>
+    <div class="item-percentage">0,09%</div>
+</div></div><div class="project-group">
+    <div class="project-row">
+        <div class="project-name">
+            <span class="bullet" style="background-color: #0055CC">•</span>
+            Sem Projeto
+        </div>
+        <div class="project-duration">00:00:13</div>
+        <div class="project-percentage">0,01%</div>
+    </div><div class="item-row">
+    <div class="item-description"></div>
+    <div class="item-duration">00:00:09</div>
+    <div class="item-percentage">0,01%</div>
+</div><div class="item-row">
+    <div class="item-description">teste</div>
+    <div class="item-duration">00:00:04</div>
+    <div class="item-percentage">0,00%</div>
+</div></div><div class="project-group">
+    <div class="project-row">
+        <div class="project-name">
+            <span class="bullet" style="background-color: #5E4DB2">•</span>
+            17project
+        </div>
+        <div class="project-duration">00:00:11</div>
+        <div class="project-percentage">0,01%</div>
+    </div><div class="item-row">
+    <div class="item-description">descricao</div>
+    <div class="item-duration">00:00:11</div>
+    <div class="item-percentage">0,01%</div>
+</div></div>
+
+        <div class="total-row">
+            <div class="total-label">TOTAL</div>
+            <div class="total-duration">28:25:05</div>
+            <div class="total-percentage">100%</div>
+        </div>
+    </div>
+
+    <script>
+    const barChartData = {"labels":["seg. 02/02","ter. 03/02","qui. 05/02","sex. 06/02","seg. 09/02","ter. 10/02","qui. 19/02"],"values":[9.016666666666667,2.75,2.1333333333333333,5,0,0,9.5],"colors":["#1C3661","#1C3661","#1C3661","#1C3661","#1C3661","#1C3661","#1C3661"]};
+    const donutChartData = {"labels":["Conecta","10project","4project","Sem Projeto","17project"],"values":[43.6,33.5,22.9,0,0],"colors":["#5D1F1A","#164B35","#352C63","#0055CC","#5E4DB2"]};
+
+    window.addEventListener('DOMContentLoaded', function() {
+      new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+          labels: barChartData.labels,
+          datasets: [{
+            label: 'Hours',
+            data: barChartData.values,
+            backgroundColor: barChartData.colors,
+            borderRadius: 5,
+            maxBarThickness: 60
+          }]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false,
+          animation: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { stepSize: 2 }
+            }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('donutChart'), {
+        type: 'doughnut',
+        data: {
+          labels: donutChartData.labels,
+          datasets: [{
+            data: donutChartData.values,
+            backgroundColor: donutChartData.colors,
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false,
+          animation: false,
+          cutout: '70%',
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      window.status = 'ready';
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+﻿body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #172D44;
+}
+
+.meta {
+    margin-bottom: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size:16px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 6px;
+}
+
+th {
+    background-color: #1C366140;
+    border: 1px solid #172D44;
+}
+
+.total {
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.summary-page h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color:#172D44;
+}
+
+.date-range {
+    color: #666;
+    margin-top: -5px;
+    margin-bottom: 30px;
+}
+
+.summary-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding: 20px 40px;
+    background: linear-gradient(45deg, #061915, #1C3661);
+    border-radius: 8px;
+}
+
+
+.summary-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .summary-title h2 {
+        border: 2px solid #172D44;
+        padding: 8px 18px;
+        border-radius: 8px;
+        color: #172D44;
+        font-size: 16px;
+    }
+
+.summary-item {
+    color: white;
+}
+
+    .summary-item .label {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .summary-item .value {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+.chart-container .doughnut {
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.chart-container h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    color: #172D44;
+}
+
+.legend {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 400px;
+    padding: 20px 30px;
+    border-radius: 16px;
+    border: 1px solid #C9CFD5;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 4px;
+}
+
+.legend-details {
+    flex: 1;
+    display: flex;
+    gap: 150px;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.legend-others {
+    margin-top: 5px;
+}
+
+    .legend-others .legend-details span {
+        font-size: 14px;
+    }
+
+.breakdown-page {
+    padding: 40px;
+}
+
+.breakdown-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #172D44;
+}
+
+.breakdown-header {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px;
+    gap: 16px;
+    padding: 12px 16px;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #172D44;
+    font-weight: bold;
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.header-project {
+    text-align: left;
+}
+
+.header-duration,
+.header-percentage {
+    text-align: right;
+}
+
+.project-group {
+    margin-bottom: 24px;
+    border-left: 3px solid #eaf2f5;
+    padding-left: 0;
+    border-radius: 4px;
+}
+
+.project-row {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px;
+    gap: 16px;
+    padding: 12px 16px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dae2e6;
+    font-weight: bold;
+    font-size: 14px;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.project-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #172D44;
+}
+
+.bullet {
+    color:transparent;
+    width:6px;
+    height:6px;
+    display:inline-block;
+    border-radius:50%;
+    line-height: 1;
+}
+
+.project-duration,
+.project-percentage {
+    text-align: right;
+    color: #172D44;
+}
+
+.item-row {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px;
+    gap: 16px;
+    padding: 8px 16px 8px 40px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+    align-items: center;
+}
+
+.item-row:hover {
+    background-color: #f9f9f9;
+}
+
+.item-description {
+    color: #555;
+}
+
+.item-duration,
+.item-percentage {
+    text-align: right;
+    color: #666;
+}
+
+.total-row {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px;
+    gap: 16px;
+    padding: 16px;
+    margin-top: 24px;
+    background-color: #172D44;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 4px;
+}
+
+.total-label {
+    text-align: left;
+}
+
+.total-duration,
+.total-percentage {
+    text-align: right;
+}
+
+.page-break {
+    page-break-after: always;
+}
