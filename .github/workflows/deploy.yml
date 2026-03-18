@@ -1,0 +1,55 @@
+name: Trigger auto deployment for api-4manage
+
+on:
+  push:
+    tags:
+      - 'v*' # Dispara apenas por tag
+  workflow_dispatch:      
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Rodar Testes de Unidade
+        run: dotnet test tests/4Manager.Application.Tests/ --configuration Release
+
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    needs: test 
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          auth-type: SERVICE_PRINCIPAL # Essencial para não pedir id-token
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          dockerfilePath: ./src/4Manager.API/Dockerfile
+          registryUrl: acrteste4managerapi.azurecr.io
+          registryUsername: acrteste4managerapi
+          registryPassword: ${{ secrets.ACR_PASSWORD }}
+          containerAppName: api-4manage
+          resourceGroup: rg-4manage
+          imageToBuild: acrteste4managerapi.azurecr.io/api-4manage:${{ github.ref_name }}
+          targetPort: 8080
+          containerAppExists: true
