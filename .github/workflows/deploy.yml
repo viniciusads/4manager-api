@@ -9,8 +9,8 @@ on:
 env:
   AZURE_CONTAINER_APP_NAME: "api-4manage"
   AZURE_RESOURCE_GROUP: "rg-4manage"
-  ACR_URL: "acrteste4managerapi.azurecr.io"
-  IMAGE_NAME: "acrteste4managerapi.azurecr.io/api-4manage"
+  ACR_URL: "acrteste4managerapi-a6bqbxfghye5gbcr.azurecr.io"
+  IMAGE_NAME: "acrteste4managerapi-a6bqbxfghye5gbcr.azurecr.io/api-4manage"
 
 jobs:
   test:
@@ -63,7 +63,7 @@ jobs:
       - name: Deploy to Container App
         uses: azure/container-apps-deploy-action@v1
         with:
-          acrName: acrteste4managerapi
+          acrName: acrteste4managerapi-a6bqbxfghye5gbcr
           containerAppName: ${{ env.AZURE_CONTAINER_APP_NAME }}
           resourceGroup: ${{ env.AZURE_RESOURCE_GROUP }}
           imageToDeploy: ${{ env.IMAGE_NAME }}:${{ github.ref_name }}
