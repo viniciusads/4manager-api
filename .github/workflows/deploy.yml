@@ -60,12 +60,18 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}:${{ github.ref_name }}
 
-      - name: Deploy to Container App  # ← Usando CLI diretamente, sem o action problemático
+      - name: Set ACR Registry on Container App
+        run: |
+          az containerapp registry set \
+            --name ${{ env.AZURE_CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --server ${{ env.ACR_URL }} \
+            --username ${{ secrets.ACR_USERNAME }} \
+            --password ${{ secrets.ACR_PASSWORD }}
+
+      - name: Deploy to Container App
         run: |
           az containerapp update \
             --name ${{ env.AZURE_CONTAINER_APP_NAME }} \
             --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
-            --image ${{ env.IMAGE_NAME }}:${{ github.ref_name }} \
-            --registry-server ${{ env.ACR_URL }} \
-            --registry-username ${{ secrets.ACR_USERNAME }} \
-            --registry-password ${{ secrets.ACR_PASSWORD }}
+            --image ${{ env.IMAGE_NAME }}:${{ github.ref_name }}
