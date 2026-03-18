@@ -63,7 +63,7 @@ jobs:
       - name: Deploy to Container App
         uses: azure/container-apps-deploy-action@v1
         with:
-          acrName: acrteste4managerapi-a6bqbxfghye5gbcr
+          # acrName removido — login já feito no step anterior
           containerAppName: ${{ env.AZURE_CONTAINER_APP_NAME }}
           resourceGroup: ${{ env.AZURE_RESOURCE_GROUP }}
           imageToDeploy: ${{ env.IMAGE_NAME }}:${{ github.ref_name }}
