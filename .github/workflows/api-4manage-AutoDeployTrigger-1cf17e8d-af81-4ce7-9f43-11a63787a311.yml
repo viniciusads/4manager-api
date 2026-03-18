@@ -2,12 +2,9 @@ name: Trigger auto deployment for api-4manage
 
 on:
   push:
-    branches: 
-      [ main ]
-    paths:
-    - '**'
-    - '.github/workflows/api-4manage-AutoDeployTrigger-1cf17e8d-af81-4ce7-9f43-11a63787a311.yml'
-  workflow_dispatch:      
+    tags:
+      - 'v*'
+  workflow_dispatch:    
 
 jobs:
   # ==========================================
